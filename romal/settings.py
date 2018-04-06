@@ -10,6 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import environ
+root = environ.Path(__file__) - 3 # three folder back (/a/b/c/ - 3 = /)
+env = environ.Env(DEBUG=(bool, False),) # set default values and casting
+environ.Env.read_env() # reading .env file
+
+SITE_ROOT = root()
+
+DEBUG = env('DEBUG') # False if not in os.environ
+TEMPLATE_DEBUG = DEBUG
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -20,10 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qwyrdf)9c!=ujs9wz94i1b(bjf=h^t#1ey16jy9r3s+&952h83'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = env('SECRET_KEY', default='qwyrdf)9c!=ujs9wz94i1b(bjf=h^t#1ey16jy9r3s+&952h83')
 
 ALLOWED_HOSTS = ['romal-server.scalingo.io']
 
