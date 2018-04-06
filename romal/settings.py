@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', default='qwyrdf)9c!=ujs9wz94i1b(bjf=h^t#1ey16jy9r3s+&952h83')
 
-ALLOWED_HOSTS = ['romal-server.scalingo.io']
+ALLOWED_HOSTS = ['localhost', 'romal-server.scalingo.io']
 
 
 # Application definition
@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CUSTOM_APPS = [
+    'frontend'
+]
+
+INSTALLED_APPS += CUSTOM_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
