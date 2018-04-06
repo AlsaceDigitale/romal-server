@@ -27,6 +27,8 @@ wheels/
 *.egg
 MANIFEST
 db.sqlite3
+static/
+staticfiles/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
