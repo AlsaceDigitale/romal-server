@@ -1,28 +1,31 @@
-ROMAL (Temporary name)
-======================
+# ROMAL (Temporary name)
 
-Requirements
-------------
+## Requirements
+
 
 - PostgresSQL or SQLite
 - Redis
 
-Developer setup
----------------
+## Developer setup
 
-Install pipenv
-###################
+
+### Install pipenv
 
 See https://docs.pipenv.org/#install-pipenv-today
 
-Setup environment
-#################
+### Setup environment
 
     pipenv install
 
 
-Run the server
-#################
+## Starting the server
+
+### Apply database migrations
+
+
+    pipenv run python manage.py migrate
+
+###Run the server
 
     pipenv run python manage.py runserver localhost:5000
 
