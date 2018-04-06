@@ -25,7 +25,7 @@ SECRET_KEY = 'qwyrdf)9c!=ujs9wz94i1b(bjf=h^t#1ey16jy9r3s+&952h83'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['romal-server.scalingo.io']
 
 
 # Application definition
