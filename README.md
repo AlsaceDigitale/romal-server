@@ -30,3 +30,13 @@ See https://docs.pipenv.org/#install-pipenv-today
     pipenv run python manage.py runserver localhost:5000
 
 Now the site is runnning and auto-reloading the sources
+
+## Deployer tasks
+
+### Adding a dependency
+
+    pipenv install [DEPENDENCY]
+
+### Updating the requirements file
+
+    pipenv run pip freeze > requirements.txt
