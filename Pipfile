@@ -10,6 +10,7 @@ name = "pypi"
 django = "*"
 django-rest-framework = "*"
 django-environ = "*"
+"psycopg2" = "*"
 
 
 [dev-packages]
