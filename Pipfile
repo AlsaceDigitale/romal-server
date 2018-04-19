@@ -1,23 +1,17 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 django = "*"
 django-rest-framework = "*"
 django-environ = "*"
 "psycopg2" = "*"
 whitenoise = "*"
-
+clarifai = "*"
 
 [dev-packages]
 
-
-
 [requires]
-
 python_version = "3.6"
