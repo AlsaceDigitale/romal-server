@@ -4,6 +4,7 @@ from django.forms.models import model_to_dict
 
 from .models import Challenge
 
+
 # Will disappear when we have a way to set the current challenge
 def index(request):
     challenges = Challenge.objects.all()
@@ -11,6 +12,7 @@ def index(request):
     return JsonResponse({
         "challenges": list(challenges.values('riddle_text', 'id')),
     })
+
 
 def details(request, challenge_id):
     challenge = get_object_or_404(Challenge, pk=challenge_id)
@@ -21,6 +23,7 @@ def details(request, challenge_id):
             "id": challenge.id,
         },
     })
+
 
 def solve(request, challenge_id):
     if request.method != 'POST':

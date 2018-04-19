@@ -1,6 +1,7 @@
 from django.db import models
 from clarifai.rest import ClarifaiApp
 
+
 class Challenge(models.Model):
     riddle_text = models.CharField(max_length=500)
     answer_text = models.CharField(max_length=500)
@@ -16,6 +17,6 @@ class Challenge(models.Model):
 
         for prediction in output['data']['concepts']:
             if prediction['name'] == self.answer_text:
-                return { 'valid': True }
+                return {'valid': True}
 
-        return { 'valid': False, 'guessed': output['data'] }
+        return {'valid': False, 'guessed': output['data']}
