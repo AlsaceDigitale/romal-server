@@ -139,3 +139,6 @@ If the challenge is not solved:
 }
 ```
 
+## Start the bot
+
+    pipenv run python manage.py run_bot
