@@ -58,7 +58,7 @@ Now the site is runnning and auto-reloading the sources
 
 ### Available routes
 
-**GET /challenges/**
+**GET /api/challenges/**
 Get all the registered challenges
 
 Response:
@@ -78,7 +78,7 @@ Response:
 }
 ```
 
-**GET /challenges/:challenge_id**
+**GET /api/challenges/:challenge_id**
 Get the riddle for a specific challenge
 
 Response:
@@ -91,7 +91,7 @@ Response:
 }
 ```
 
-**POST /challenges/:challenge_id/solve**
+**POST /api/challenges/:challenge_id/solve**
 Check if an attempt to solve the current challenge is valid.
 
 Parameters:
