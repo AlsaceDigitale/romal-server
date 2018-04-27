@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from frontend import views as frontend_views
+
 urlpatterns = [
+    path('', frontend_views.HomeView.as_view()),
     path('admin/', admin.site.urls),
-    path('', include('frontend.urls')),
     path('api/challenges/', include('challenges.urls')),
 ]

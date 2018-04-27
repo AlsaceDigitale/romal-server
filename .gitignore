@@ -27,7 +27,6 @@ wheels/
 *.egg
 MANIFEST
 db.sqlite3
-static/
 staticfiles/
 
 # PyInstaller
