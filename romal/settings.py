@@ -38,13 +38,16 @@ ALLOWED_HOSTS = ['localhost', 'romal-server.scalingo.io']
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'challenges.apps.ChallengesConfig',
+    'teams.apps.TeamsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 CUSTOM_APPS = [
@@ -121,6 +124,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# DRF config
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES" : [],
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -147,3 +156,7 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Sites
+
+SITE_ID = 1

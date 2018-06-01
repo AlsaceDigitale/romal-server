@@ -1,22 +1,19 @@
 from django.db import models
-from clarifai.rest import ClarifaiApp
-
+from django.contrib.sites.models import Site
 
 class Challenge(models.Model):
     riddle_text = models.CharField(max_length=500)
     answer_text = models.CharField(max_length=500)
     clarifai_model = models.CharField(default='general-v1.3', max_length=100)
 
-    def solve(self, attemp_url):
-        app = ClarifaiApp()
-        model = app.models.get(self.clarifai_model)
+    def __str__(self):
+        return self.riddle_text
 
-        result = model.predict_by_url(attemp_url, lang='en')
 
-        output = result['outputs'][0]
+class RunningChallenges(models.Model):
+    challenge = models.ForeignKey(Challenge, on_delete=models.DO_NOTHING, related_name='running')
+    site = models.ForeignKey(Site, on_delete=models.DO_NOTHING, unique=True)
 
-        for prediction in output['data']['concepts']:
-            if prediction['name'] == self.answer_text:
-                return {'valid': True}
+    def __str__(self):
+        return str(self.site)
 
-        return {'valid': False, 'guessed': output['data']}

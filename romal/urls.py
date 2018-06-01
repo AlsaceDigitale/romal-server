@@ -15,9 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+from rest_framework.routers import DefaultRouter
 
+from challenges import viewsets as challenges_viewsets
+from teams import viewsets as teams_viewsets
+
+router = DefaultRouter()
+router.register(r'challenges', challenges_viewsets.ChallengeViewSet)
+router.register(r'teams', teams_viewsets.TeamViewSet)
+
+# The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')),
-    path('api/challenges/', include('challenges.urls')),
+    url(r'api/', include(router.urls)),
 ]
