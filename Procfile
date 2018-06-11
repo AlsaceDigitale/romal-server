@@ -1,1 +1,2 @@
-web: python manage.py migrate sites && python manage.py migrate && python manage.py runserver 0.0.0.0:$PORT
+web: python manage.py runserver 0.0.0.0:$PORT
+postdeploy: python manage.py migrate
