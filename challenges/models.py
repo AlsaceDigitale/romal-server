@@ -12,8 +12,8 @@ class Challenge(models.Model):
 
 class RunningChallenges(models.Model):
     challenge = models.ForeignKey(Challenge, on_delete=models.DO_NOTHING, related_name='running')
-    site = models.ForeignKey(Site, on_delete=models.DO_NOTHING, unique=True)
+    site = models.ForeignKey(Site, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site)
+        return str(self.site) + ":"+str(self.challenge)
 

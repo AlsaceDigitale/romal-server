@@ -13,6 +13,7 @@ clarifai = "*"
 Pillow = "*"
 djangorestframework = "*"
 PyJWT = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

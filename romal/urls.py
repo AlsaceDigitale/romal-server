@@ -19,11 +19,11 @@ from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
 
 from challenges import viewsets as challenges_viewsets
-from teams import viewsets as teams_viewsets
+from users import viewsets as users_viewsets
 
 router = DefaultRouter()
 router.register(r'challenges', challenges_viewsets.ChallengeViewSet)
-router.register(r'teams', teams_viewsets.TeamViewSet)
+router.register(r'users', users_viewsets.UserViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
