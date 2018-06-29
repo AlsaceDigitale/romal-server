@@ -4,6 +4,7 @@ from django.contrib.sites.models import Site
 class Challenge(models.Model):
     riddle_text = models.CharField(max_length=500)
     answer_text = models.CharField(max_length=500)
+    classes_list = models.CharField(max_length=150)
     clarifai_model = models.CharField(default='general-v1.3', max_length=100)
 
     def __str__(self):
