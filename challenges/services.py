@@ -5,6 +5,7 @@ import io
 import base64
 
 def solve_challenge(challenge, file_obj, filename):
+    expected_classes = [s.strip() for s in challenge.classes_list.split(',')]
     app = ClarifaiApp()
     model = app.models.get(challenge.clarifai_model)
 
@@ -14,7 +15,7 @@ def solve_challenge(challenge, file_obj, filename):
     output = result['outputs'][0]
 
     for prediction in output['data']['concepts']:
-        if prediction['name'] == challenge.answer_text:
+        if prediction['name'] in expected_classes:
             return True, None
 
     return False, output['data']['concepts']

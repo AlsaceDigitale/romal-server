@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import FileUploadParser, FormParser
 from django.contrib.sites.models import Site
 
 from challenges.models import Challenge, RunningChallenges
@@ -11,6 +11,7 @@ from challenges import services
 class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Challenge.objects.all()
     serializer_class = ChallengeSerializer
+    parser_classes = (FormParser,)
 
 
     @action(methods=['post'], detail=True, parser_classes=(FileUploadParser,))
@@ -24,8 +25,9 @@ class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
         solved, data = services.solve_challenge(challenge, file_obj, filename)
 
         if solved:
-            RunningChallenges.objects.filter(site=Site.objects.get_current(), challenge=challenge).delete()
-            new_challenge = Challenge.objects.filter(running__site=Site.objects.current())
+            current_running_challenge=RunningChallenges.objects.filter(challenge=challenge).first()
+            current_running_challenge.challenge = Challenge.objects.filter().first()
+            current_running_challenge.save()
 
 
         return Response(data={"solved": solved, "guessed": data})
