@@ -9,7 +9,7 @@ from challenges.serializers import ChallengeSerializer
 from challenges import services
 
 class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Challenge.objects.filter(running__site=Site.objects.get_current())
+    queryset = Challenge.objects.all()
     serializer_class = ChallengeSerializer
 
 
