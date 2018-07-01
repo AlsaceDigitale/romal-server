@@ -23,6 +23,7 @@ from users import viewsets as users_viewsets
 
 router = DefaultRouter()
 router.register(r'challenges', challenges_viewsets.ChallengeViewSet)
+router.register(r'running-challenges', challenges_viewsets.RunningChallengeViewSet)
 router.register(r'users', users_viewsets.UserViewSet)
 
 # The API URLs are now determined automatically by the router.

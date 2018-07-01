@@ -21,8 +21,25 @@ class Challenge(models.Model):
 
 class RunningChallenges(models.Model):
     challenge = models.ForeignKey(Challenge, on_delete=models.DO_NOTHING, related_name='running')
+    current = models.BooleanField(default=False)
     #site = models.ForeignKey(Site, on_delete=models.DO_NOTHING)
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return str(self.challenge)
 
+    def get_solve_duration_min(self):
+        return (self.end_time - self.start_time).total_seconds() / 60
+
+
+class Trial(models.Model):
+    challenge = models.ForeignKey(Challenge, on_delete=models.DO_NOTHING, related_name='trials')
+    running_challenge = models.ForeignKey(RunningChallenges, on_delete=models.DO_NOTHING, related_name='trials')
+    classes = models.CharField(max_length=500)
+    success = models.BooleanField()
+    trial_time = models.DateTimeField(auto_now_add=True)
+    player_pseudo = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return "Trial for {}".format(self.challenge)
