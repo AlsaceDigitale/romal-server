@@ -58,6 +58,13 @@ Now the site is runnning and auto-reloading the sources
 
 ### Available routes
 
+**GET /api/running-challenges/**
+Get the running challenges (normally, only one)
+
+
+**GET /api/scores/**
+Get the scores
+
 **GET /api/challenges/**
 Get all the registered challenges
 
@@ -96,7 +103,7 @@ Check if an attempt to solve the current challenge is valid.
 
 Parameters:
 
-* `attempt` **REQUIRED**: URL to the current attempt image
+* `player_pseudo` **OPTIONAL**: pseudo of the trying player
 
 Response:
 
