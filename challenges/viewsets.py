@@ -10,8 +10,8 @@ from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser, FormParser
 from django.contrib.sites.models import Site
 
-from challenges.models import Challenge, RunningChallenges, Trial
-from challenges.serializers import ChallengeSerializer, RunningChallengeSerializer
+from challenges.models import Challenge, RunningChallenges, Trial, Score
+from challenges.serializers import ChallengeSerializer, RunningChallengeSerializer, ScoreSerializer
 from challenges import services
 
 
@@ -52,6 +52,12 @@ def get_next_challenge(current_challenge: Challenge, current_running_challenge: 
 class RunningChallengeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = RunningChallenges.objects.filter(current=True)
     serializer_class = RunningChallengeSerializer
+
+
+class ScoreViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Score.objects
+    serializer_class = ScoreSerializer
+
 
 class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Challenge.objects.all()
@@ -114,5 +120,18 @@ class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
                 new_running_challenge.current = True
                 new_running_challenge.save()
                 current_running_challenge.save()
+
+                if player_pseudo:
+                    score = Score.objects.filter(player_pseudo=player_pseudo).first()
+                    if not score:
+                        score = Score()
+                        score.player_pseudo = player_pseudo
+                        score.score = 0
+
+                    score.score += 100
+
+                    score.save()
+
+
 
         return Response(data={"solved": solved, "guessed": data})

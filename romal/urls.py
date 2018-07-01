@@ -25,6 +25,7 @@ router = DefaultRouter()
 router.register(r'challenges', challenges_viewsets.ChallengeViewSet)
 router.register(r'running-challenges', challenges_viewsets.RunningChallengeViewSet)
 router.register(r'users', users_viewsets.UserViewSet)
+router.register(r'scores', challenges_viewsets.ScoreViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [

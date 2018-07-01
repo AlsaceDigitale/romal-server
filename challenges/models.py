@@ -43,3 +43,8 @@ class Trial(models.Model):
 
     def __str__(self):
         return "Trial for {}".format(self.challenge)
+
+
+class Score(models.Model):
+    player_pseudo = models.CharField(max_length=50)
+    score = models.PositiveIntegerField()
