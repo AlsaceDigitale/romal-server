@@ -138,6 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES" : [],
+    'EXCEPTION_HANDLER': 'challenges.exception_handler.custom_exception_handler'
 }
 
 
