@@ -45,12 +45,14 @@ class Trial(models.Model):
     classes = models.CharField(max_length=5000)
     success = models.BooleanField()
     trial_time = models.DateTimeField(auto_now_add=True)
-    player_pseudo = models.CharField(max_length=50, null=True, blank=True)
+    player_pseudo = models.CharField(max_length=255, null=True, blank=True)
+    player_email = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return "Trial for {}".format(self.challenge)
 
 
 class Score(models.Model):
-    player_pseudo = models.CharField(max_length=50)
+    player_pseudo = models.CharField(max_length=255)
+    player_email = models.CharField(max_length=255, blank=True, null=True)
     score = models.PositiveIntegerField()

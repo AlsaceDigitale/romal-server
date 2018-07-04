@@ -17,4 +17,4 @@ class RunningChallengeSerializer(serializers.ModelSerializer):
 class ScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
-        fields = "__all__"
+        fields = ['player_pseudo', 'score']

@@ -91,6 +91,7 @@ class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
                                                              last_failed=timezone.now())
 
         player_pseudo = request.query_params.get('player_pseudo', None)
+        player_email = request.query_params.get('player_email', None)
 
         trial = Trial()
         trial.challenge = challenge
@@ -98,6 +99,7 @@ class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
         trial.success = solved
         trial.classes = str(data)
         trial.player_pseudo = player_pseudo
+        trial.player_email = player_email
         trial.save()
 
         if solved:
@@ -120,6 +122,7 @@ class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
                     if not score:
                         score = Score()
                         score.player_pseudo = player_pseudo
+                        score.player_email = player_email
                         score.score = 0
 
                     score.score += 100
