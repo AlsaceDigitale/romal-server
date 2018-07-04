@@ -36,7 +36,7 @@ class RunningChallenges(models.Model):
 class Trial(models.Model):
     challenge = models.ForeignKey(Challenge, on_delete=models.DO_NOTHING, related_name='trials')
     running_challenge = models.ForeignKey(RunningChallenges, on_delete=models.DO_NOTHING, related_name='trials')
-    classes = models.CharField(max_length=500)
+    classes = models.CharField(max_length=5000)
     success = models.BooleanField()
     trial_time = models.DateTimeField(auto_now_add=True)
     player_pseudo = models.CharField(max_length=50, null=True, blank=True)
