@@ -15,34 +15,28 @@ from challenges.serializers import ChallengeSerializer, RunningChallengeSerializ
 from challenges import services
 
 
-def get_challenges_by_solving_probability() -> Manager:
-    return Challenge.objects.annotate(solve_proba=Coalesce(100.0 * F('times_solved') / F('times_tried'), 100))
-
-
 def get_next_challenge(current_challenge: Challenge, current_running_challenge: RunningChallenges):
-    all_challenges = get_challenges_by_solving_probability()
+    all_challenges = Challenge.objects.all()
 
-    current_challenge_proba = all_challenges.filter(id=current_challenge.id).first().solve_proba
+    current_challenge_proba = current_challenge.solve_proba()
 
     print("Current challenge proba: {}".format(current_challenge_proba))
 
     if current_running_challenge.get_solve_duration_min() > 5:
         print("Players are too dumb")
-        next_challenge = all_challenges.filter(id=current_challenge.id).filter(
-            solve_proba__lte=current_challenge_proba)
+        next_challenges = filter(lambda c: c.solve_proba() >= current_challenge_proba, all_challenges)
     else:
         print("Players are too smart")
-        next_challenge = all_challenges.filter(id=current_challenge.id).filter(
-            solve_proba__gte=current_challenge_proba)
+        next_challenges = filter(lambda c: c.solve_proba() <= current_challenge_proba, all_challenges)
 
-    next_challenge = list(next_challenge) + list(all_challenges.filter(times_tried=0))
+    next_challenges = [n for n in next_challenges if n.id != current_challenge.id]
 
-    next_challenge = [n for n in next_challenge if n.id != current_challenge.id]
+    if not next_challenges:
+        next_challenges=list(Challenge.objects.all())
 
-    if not next_challenge:
-        next_challenge = list(all_challenges.filter(id=current_challenge.id).all())
+        next_challenges = [n for n in next_challenges if n.id != current_challenge.id]
 
-    next_challenge = random.choice(next_challenge)
+    next_challenge = random.choice(next_challenges)
 
     print("Next challenge is {}".format(next_challenge))
 

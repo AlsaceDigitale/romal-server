@@ -18,6 +18,12 @@ class Challenge(models.Model):
     def __str__(self):
         return self.riddle_text
 
+    def solve_proba(self):
+        if self.times_tried:
+            return min(self.times_solved/self.times_tried,1.0)
+        else:
+            return 1.0
+
 
 class RunningChallenges(models.Model):
     challenge = models.ForeignKey(Challenge, on_delete=models.DO_NOTHING, related_name='running')
