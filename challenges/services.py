@@ -4,6 +4,9 @@ from clarifai.rest import Image as ClImage
 import io
 import base64
 
+from django.db import transaction
+
+from challenges.models import GameStatus
 from challenges.tools import Timer
 
 
@@ -34,3 +37,22 @@ def solve_challenge(challenge, file_obj, filename):
             return True, None
 
     return False, output['data']['concepts']
+
+
+def update_monster_score(score_delta: int):
+    with transaction.atomic():
+        if GameStatus.objects.count() == 0:
+            current_game_status = GameStatus()
+            current_game_status.monster_score = 0
+            current_game_status.current = True
+            current_game_status.save()
+        else:
+            current_game_status = GameStatus.objects.select_for_update().filter(current=True).first()
+
+        new_game_status = GameStatus()
+        new_game_status.monster_score = current_game_status.monster_score + score_delta
+        new_game_status.current = True
+        current_game_status.current = False
+
+        current_game_status.save()
+        new_game_status.save()

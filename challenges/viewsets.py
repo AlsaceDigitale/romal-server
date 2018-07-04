@@ -10,8 +10,9 @@ from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser, FormParser
 from django.contrib.sites.models import Site
 
-from challenges.models import Challenge, RunningChallenges, Trial, Score
-from challenges.serializers import ChallengeSerializer, RunningChallengeSerializer, ScoreSerializer
+from challenges.models import Challenge, RunningChallenges, Trial, Score, GameStatus
+from challenges.serializers import ChallengeSerializer, RunningChallengeSerializer, ScoreSerializer, \
+    GameStatusSerializer
 from challenges import services
 
 
@@ -46,6 +47,11 @@ def get_next_challenge(current_challenge: Challenge, current_running_challenge: 
 class RunningChallengeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = RunningChallenges.objects.filter(current=True)
     serializer_class = RunningChallengeSerializer
+
+
+class GameStatusViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = GameStatus.objects.filter(current=True)
+    serializer_class = GameStatusSerializer
 
 
 class ScoreViewSet(viewsets.ReadOnlyModelViewSet):
@@ -103,6 +109,8 @@ class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
         trial.save()
 
         if solved:
+            services.update_monster_score(100)
+
             with transaction.atomic():
                 current_running_challenge = RunningChallenges.objects.select_for_update(). \
                     filter(challenge=challenge,

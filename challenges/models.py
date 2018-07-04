@@ -3,6 +3,15 @@ import datetime
 from django.db import models
 from django.contrib.sites.models import Site
 
+class GameStatus(models.Model):
+    status_date = models.DateTimeField(auto_now_add=True)
+    current = models.BooleanField(default=False)
+    monster_score = models.IntegerField()
+
+    class Meta:
+        verbose_name_plural = "Game statuses"
+
+
 class Challenge(models.Model):
     riddle_text = models.CharField(max_length=500)
     answer_text = models.CharField(max_length=500)
@@ -37,6 +46,9 @@ class RunningChallenges(models.Model):
 
     def get_solve_duration_min(self):
         return (self.end_time - self.start_time).total_seconds() / 60
+
+    class Meta:
+        verbose_name_plural = "Running Challenges"
 
 
 class Trial(models.Model):

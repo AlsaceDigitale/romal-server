@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from challenges.models import Challenge, RunningChallenges, Score
+from challenges.models import Challenge, RunningChallenges, Score, GameStatus
 
 
 class ChallengeSerializer(serializers.ModelSerializer):
@@ -18,3 +18,8 @@ class ScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = ['player_pseudo', 'score']
+
+class GameStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=GameStatus
+        fields = ['status_date','monster_score']
