@@ -51,8 +51,18 @@ def update_monster_score(score_delta: int):
 
         new_game_status = GameStatus()
         new_game_status.monster_score = current_game_status.monster_score + score_delta
+
+        if new_game_status.monster_score < 0:
+            if current_game_status.monster_score > 0:
+                new_game_status.monster_score = 0
+            else:
+                print("No updating score because would be under 0")
+                return
+
         new_game_status.current = True
         current_game_status.current = False
 
         current_game_status.save()
         new_game_status.save()
+
+        print("New monster score: {}".format(new_game_status.monster_score))
