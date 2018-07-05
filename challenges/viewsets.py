@@ -5,6 +5,7 @@ from django.db.models import F, Manager
 from django.db.models.functions import Greatest, Coalesce
 from django.utils import timezone
 from rest_framework import viewsets, status
+from rest_framework.exceptions import bad_request, ValidationError
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.parsers import FileUploadParser, FormParser
@@ -67,6 +68,9 @@ class ChallengeViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['post'], detail=True, parser_classes=(FileUploadParser,))
     def solve(self, request, pk=None, format=None, filename=None):
+        if not 'file' in request.FILES:
+            raise ValidationError(detail="Missing 'file' in request files")
+
         file_obj = request.FILES['file']
 
         if file_obj is None:
